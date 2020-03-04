@@ -1,0 +1,29 @@
+- name: "install app node"
+ hosts: aula
+ become: yes
+ vars:
+  path_app: /usr/app
+ tasks:
+  - name: "Criar o diretório"
+
+  - name: "1 - Instalar a depedência unzip"
+    file:
+    path: "{{path_app}}"
+    state: directory
+    mode: '0755'
+
+  - name: "2 - Download e Descompactar"
+    package:
+     name:
+       - unzip
+     state: present
+
+  - name: "3 - Compilando app"
+    unarchive:
+     src: https://github.com/bgsouza/app_node2/archive/master.zip
+     dest: "{{path_app}}"
+     remote_src: yes
+
+  -name: "4 - Gerenciador node pm2"
+
+  -name: "5 - Rodando a app"
